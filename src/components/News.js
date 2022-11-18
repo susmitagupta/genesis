@@ -1,10 +1,8 @@
 import React, { Component } from "react";
 import Newsitem from "./Newsitem";
 
-
 export class News extends Component {
-
-   articles= [
+  articles = [
     {
       "source": { "id": "news-com-au", "name": "News.com.au" },
       "author": null,
@@ -47,43 +45,27 @@ export class News extends Component {
     }
   ]
 
-    constructor(){
-        super();
-        this.state={
-            articles: this.articles,
-            loding: false
-
-        }
-    }
+  constructor() {
+    super();
+    this.state = {
+      articles: this.articles,
+      loding: false,
+    };
+  }
   render() {
     return (
       <div className="container my-3">
         <h1>Top Stories</h1>
-        {this.state.articles.map((element)=>{
-              return(
-                console.log(element)
-              )
-  })}
-
-
 
         <div className="row">
-          <div className="col-md-4">
-            <Newsitem title="" description="" imageURL="" newsURL="TODO" />
-          </div>
-          
-          
+          {this.state.articles.map((element) => {
+           return  <div className="col-md-4" key={element.url} >
+                <Newsitem title={element.title} description={element.description} imageURL={element.urlToImage} newsURL={element.url} />
+              </div>
+              
+  })}
         </div>
-
-
-
-       
-
-
-
-
       </div>
-      
     );
   }
 }
