@@ -8,6 +8,7 @@ export class News extends Component {
       articles: [],
       loding: false,
       page: 1,
+      totalResults: 38
     };
   }
   async componentDidMount() {
@@ -33,6 +34,8 @@ export class News extends Component {
     else{
 
       console.log("next");
+      console.log(this.state.page);
+      console.log(this.state.page.totalResults/10);
       let url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=8ce297000d2e48a594d3a877bf5139ec&page=${ this.state.page+1 }&pageSize=10`; 
       let data = await fetch(url);
       let parsedData = await data.json();
@@ -46,7 +49,7 @@ export class News extends Component {
   render() {
     return (
       <div className="container my-3">
-        <h1>Top Stories</h1>
+        <h1 className="text-center">Top Stories</h1>
 
         <div className="row">
           {this.state.articles.map((element) => {
@@ -75,6 +78,7 @@ export class News extends Component {
           </button>
           <button
             type="button"
+            disabled={this.state.page+1 > Math.ceil(this.state.totalResults/10)}
             className="btn btn-dark"
             onClick={this.handleNext}
           >
