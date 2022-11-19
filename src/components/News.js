@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import Newsitem from "./Newsitem";
+import Spinner from "./Spinner";
+
 
 export class News extends Component {
   constructor() {
@@ -13,34 +15,36 @@ export class News extends Component {
   }
   async componentDidMount() {
     let url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=8ce297000d2e48a594d3a877bf5139ec&page=1&pageSize=${this.props.pageSize}`; 
+    this.setState({loding:true});
     let data = await fetch(url);
     let parsedData = await data.json();
-    this.setState({ articles: parsedData.articles, totalArticles: parsedData.totalResults });
+    this.setState({ articles: parsedData.articles, totalArticles: parsedData.totalResults ,  loding:false});
   }
   handlePrevious = async () => {
     console.log("previous");
     let url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=8ce297000d2e48a594d3a877bf5139ec&page=${ this.state.page-1 }&pageSize=${this.props.pageSize}`; 
+    this.setState({loding:true});
     let data = await fetch(url);
     let parsedData = await data.json();
     this.setState({ articles: parsedData.articles ,
-      page: this.state.page-1
+      page: this.state.page-1,
+      loding:false
     });
     
   };
   handleNext = async () => {
-    if(this.state.page+1 > Math.ceil(this.state.totalResults/this.props.pageSize)){
-
-    }
-    else{
-
+    if(!this.state.page+1 > Math.ceil(this.state.totalResults/this.props.pageSize)){
       console.log("next");
       console.log(this.state.page);
       console.log(this.state.page.totalResults/10);
       let url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=8ce297000d2e48a594d3a877bf5139ec&page=${ this.state.page+1 }&pageSize=${this.props.pageSize}`; 
+      this.setState({loding:true});
       let data = await fetch(url);
       let parsedData = await data.json();
+      
       this.setState({ articles: parsedData.articles ,
-        page: this.state.page+1
+        page: this.state.page+1,
+        loding:false
       });
     }
    
@@ -50,9 +54,9 @@ export class News extends Component {
     return (
       <div className="container my-3">
         <h1 className="text-center">Top Stories</h1>
-
+        {this.state.loding && <Spinner/>}
         <div className="row">
-          {this.state.articles.map((element) => {
+          {!this.state.loding && this.state.articles.map((element) => {
             return (
               <div className="col-md-4" key={element.url}>
                 <Newsitem
