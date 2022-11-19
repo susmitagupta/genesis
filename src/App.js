@@ -8,7 +8,7 @@ export default class  extends Component {
     return (
       <>
       <Navbar/>
-      <News/>
+      <News pageSize={12}/>
       </>
     )
   }

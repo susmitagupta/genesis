@@ -12,14 +12,14 @@ export class News extends Component {
     };
   }
   async componentDidMount() {
-    let url = "https://newsapi.org/v2/top-headlines?country=in&apiKey=8ce297000d2e48a594d3a877bf5139ec&page=1&pageSize=10"; 
+    let url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=8ce297000d2e48a594d3a877bf5139ec&page=1&pageSize=${this.props.pageSize}`; 
     let data = await fetch(url);
     let parsedData = await data.json();
     this.setState({ articles: parsedData.articles, totalArticles: parsedData.totalResults });
   }
   handlePrevious = async () => {
     console.log("previous");
-    let url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=8ce297000d2e48a594d3a877bf5139ec&page=${ this.state.page-1 }&pageSize=10`; 
+    let url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=8ce297000d2e48a594d3a877bf5139ec&page=${ this.state.page-1 }&pageSize=${this.props.pageSize}`; 
     let data = await fetch(url);
     let parsedData = await data.json();
     this.setState({ articles: parsedData.articles ,
@@ -28,7 +28,7 @@ export class News extends Component {
     
   };
   handleNext = async () => {
-    if(this.state.page+1 > Math.ceil(this.state.totalResults/10)){
+    if(this.state.page+1 > Math.ceil(this.state.totalResults/this.props.pageSize)){
 
     }
     else{
@@ -36,7 +36,7 @@ export class News extends Component {
       console.log("next");
       console.log(this.state.page);
       console.log(this.state.page.totalResults/10);
-      let url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=8ce297000d2e48a594d3a877bf5139ec&page=${ this.state.page+1 }&pageSize=10`; 
+      let url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=8ce297000d2e48a594d3a877bf5139ec&page=${ this.state.page+1 }&pageSize=${this.props.pageSize}`; 
       let data = await fetch(url);
       let parsedData = await data.json();
       this.setState({ articles: parsedData.articles ,
@@ -78,7 +78,7 @@ export class News extends Component {
           </button>
           <button
             type="button"
-            disabled={this.state.page+1 > Math.ceil(this.state.totalResults/10)}
+            disabled={this.state.page+1 > Math.ceil(this.state.totalResults/this.props.pageSize)}
             className="btn btn-dark"
             onClick={this.handleNext}
           >
