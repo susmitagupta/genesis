@@ -12,13 +12,19 @@ export class Navbar extends Component {
 
   <div className="collapse navbar-collapse" id="navbarSupportedContent">
     <ul className="navbar-nav mr-auto">
-      <li className="nav-item active">
+      <li className="nav-item ">
         <a className="nav-link" href="/">Home <span className="sr-only">(current)</span></a>
       </li>
-      <li className="nav-item">
-        <a className="nav-link" href="/About">About</a>
-      </li>
-      
+      <li className="nav-item"><a className="nav-link" href="/About">About</a></li>
+      <li className="nav-item"> <a className="nav-link" href="/business">business</a></li>
+      <li className="nav-item">  <a className="nav-link" href="/entertainment">entertainment</a></li>
+      <li className="nav-item"> <a className="nav-link" href="/general">general</a></li>
+      <li className="nav-item">  <a className="nav-link" href="/health">health</a></li>
+      <li className="nav-item">  <a className="nav-link" href="/science">science</a></li>
+      <li className="nav-item">  <a className="nav-link" href="/sports">sports</a></li>
+      <li className="nav-item">  <a className="nav-link" href="/technology">technology</a></li>
+       
+    
      
     </ul>
     
